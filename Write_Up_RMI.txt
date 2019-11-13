@@ -1,0 +1,69 @@
+***************************************************************************************************
+Author  - Deepak Varghese
+File    - Write_Up_RMI.txt
+***************************************************************************************************
+
+
+Project Objective
+=============
+To implement an Online Advising Simulation program using RMI and Message Queuing system. The Students will request approval for a course from the advisor. At some other time the advisor approves or disapproves the request and then the student is notified of the advisor’s decision via the notification process.All the message flow will be via the message queuing system.
+
+Modules
+=======
+The main modules are:
+1. The Student module: A GUI is created using JFrame and swing components. The GUI consist of two text fields for taking the Student Name and the course he is requesting for approval and a Button to send the message to MQS so that Advisor process can access it.
+2. The Advisor module: A GUI created using JFrame and swing components. The GUI consist of two Text areas - one to display the message from the MQS which is pending for the decision from Advisor and one to display the decision made to the corresponding requests.
+3. The Notification module:A GUI created using JFrame and swing components. The GUI consist of a Text area to display the message from the MQS for which the decisons have been made.
+4. The MessageQueuing Server module: A GUI created using JFrame and swing components. The GUI consist of a Text area to display the messages currently present in the queue.
+5. The File system: A txt file which is used to store the un-processed messages in the MQS server when the server closes.
+
+The project is divided into 6 classes- 
+1.Advisor.java - The Advisor class approves or disapproves the requests made from the Student Process based on a random probability.
+
+2.Server.java - The MessageQueuingServer class displays the messages that is present in the MQS . The class also implements the logic for reading from the file on starting the MQS and logic for writing the pending messages(to be processed by advisor and the messages yet to be notified) in to the file when MQS server is closed.
+
+3.Server_Implementation.java - The MQSImplemetation class implements the logic for the methods defined in the interface.
+
+4.Server_Interface.java - The MQSInterface is an interface for defining the messages that is to be defined for the MQS.
+
+5.Notification.java - The Notification class displays the student name, course and the advisor decision.
+
+6.Student.java -  The Student class takes input from the UI( The student name and the course) and sends the request as a message to MQS, so that the advisor can process it.
+
+Execution
+========
+IDE used: Eclipse Version: Oxygen Release (4.7.0)
+1. The below mentioned dependencies should be added to the build path of the project for proper compilation of ReadFromFile.java.
+2. Run AdvisorProcess.java, NotificationProcess.java, StudentProcess.java and MessageQueuingServer.java  as “Java Application” (Right click on files -Run As - Java Application).
+3. In Student Process UI, Enter the student name and course code and click on “Register Course”
+4. The corresponding message flow can be viewed in the UI of other processes. 
+5. Use the JFrame close option to close both GUI and hence the connections
+
+TestData
+=======
+The implemented system handles the below types of scenarios-
+1. When no message is present in the MQS
+2. When only Student process is working(with MQS server ON)
+3. When only Notification process is working(with MQS server ON).
+4. When only Advisor process is working (with MQS server ON)
+5. When all processes are working.((with MQS server ON)
+
+Assumptions
+===========
+*Execution is done in the common directory.
+*The file system is present within the same directory.
+* The Message Queueing Server is always started before starting any other process and is always closed only after closing all other processes.
+
+Limitations
+========
+*Exceptions will be thrown if MQS server is not started before any other process.
+*Exception will be thrown if the MQS server is closed before any other process
+
+
+References
+=========
+1)https://docs.oracle.com/javase/tutorial/rmi/index.html
+2)https://www.youtube.com/watch?v=3fq4AdaiGFA
+3)https://www.youtube.com/watch?v=BxCbxfpwC7Q
+4)http://javadevnotes.com/java-string-array-examples
+5)https://alvinalexander.com/java/java-string-array-reference-java-5-for-loop-syntax
